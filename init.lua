@@ -44,3 +44,14 @@ end
 -- modified https://gist.github.com/juhdanad/433a0aa7094ae0dceaf00924d6fd1e3b and
 -- https://github.com/minetest/minetest/pull/5640#issuecomment-302868234
 -- demo for https://github.com/minetest-mods/i3/issues/18
+
+local out_item = ItemStack("default:dirt")
+out_item:get_meta():set_string("description", " test description")
+minetest.register_craft({
+    output = out_item:to_string(),
+    type = "shapeless",
+    recipe = {
+        "default:stone",
+        "default:dirt"
+    },
+})
