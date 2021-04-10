@@ -28,11 +28,16 @@ minetest.register_node("i3_color_demo:wool", {
 	is_ground_content = false,
 	groups = {oddly_breakable_by_hand = 3,},
 	sounds = default.node_sound_defaults(),
+    preserve_metadata = function(pos, oldnode, oldmeta, drops)
+        drops[1]:get_meta():set_string("description", dyes[oldnode.param2 + 1][2] .. " Wool")
+    end,
 })
 
 for counter, dye in pairs(dyes) do
+    local out_item = ItemStack(minetest.itemstring_with_palette("i3_color_demo:wool", counter - 1))
+    out_item:get_meta():set_string("description", dyes[counter][2] .. " wool")
     minetest.register_craft({
-        output = minetest.itemstring_with_palette("i3_color_demo:wool", counter - 1),
+        output = out_item:to_string(),
         type = "shapeless",
         recipe = {
             "i3_color_demo:wool",
